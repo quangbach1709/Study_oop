@@ -36,8 +36,6 @@ class PS
         }
         friend istream& operator>>(istream& is,PS& a);
         friend ostream& operator<<(ostream& os,const PS& a);
-        
-        
 };
 
 ostream& operator<<(ostream& os,const PS& a)
@@ -61,6 +59,8 @@ int main()
     PS b;
     cin>>b;
     PS tong=a+b;
+    PS tru=a-b;
+    cout<<"Hieu: "<<tru<<endl;
     //in bang cach nap chong toan tu <<
     cout<<"Tong: "<<tong<<endl;
     
