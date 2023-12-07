@@ -1,6 +1,6 @@
-cout<<"Danh sach sinh vien: "<<endl;
-    // for (int i = 0; i < count; i++)
-    // {
-    //     cout<<newsv[i]<<endl;
-    // }
-    
+cout<<"Ban co muon nhap tiep mat hang(y/n): ";
+                    // getline(cin,tmp);
+                    // if (tmp=="n")
+                    // {
+                    //     break;
+                    // }
