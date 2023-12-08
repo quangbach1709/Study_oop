@@ -7,15 +7,20 @@ using namespace std;
 class KH
 {
     private:
-        int makh,count=10000,sdt;
+        int makh,sdt;
+        static int count;
         bool loaikh;
         string namekh,diachi;
     public:
+        KH()
+        {
+            makh=count++;
+        }
         void input()
         {
-            makh=count;
+            
             cout<<"Ma Khanh Hang: "<<makh<<endl;
-            count++;
+            
             cout<<"Nhap Ho Ten KH: ";
             getline(cin,namekh);
             cout<<"Nhap Dia Chi: ";
@@ -29,27 +34,34 @@ class KH
         void output()
         {
             
-            cout<<makh<<"\t"<<namekh<<"\t"<<diachi<<"\t"<<sdt<<endl;
+            cout<<makh<<"\t"<<namekh<<"\t"<<diachi<<"\t"<<sdt;
         }
         string getNameKH()
         {
             return namekh;
         }
-        friend void nhapKH(vector<KH> &listKH,int &dem);
-        friend void xuatKH(vector<KH> &listKH);
-};
 
+        friend void addkh(vector<KH> &listkh, int &dem);
+        
+};
+int KH::count=1000;
 class MH
 {
     private:
-        int mah,count=1000,gia,solung;
+        int mah,gia,solung;
+        static int count;
         string nameh,nhomh;
     public:
+        MH()
+        {
+            mah=count++;
+        }
+        
         void input()
         {
-            mah=count;
+            
             cout<<"Ma Hang: "<<mah<<endl;
-            count++;
+            
             cout<<"Nhap Ten Hang: ";
             getline(cin,nameh);
             cout<<"Nhap Nhom Hang: ";
@@ -64,7 +76,7 @@ class MH
         void output()
         {
             
-            cout<<mah<<"\t"<<nameh<<"\t"<<nhomh<<"\t"<<gia<<"\t"<<solung<<endl;
+            cout<<mah<<"\t"<<nameh<<"\t"<<nhomh<<"\t"<<gia<<"\t"<<solung;
         }
 
         int getSoluongHang()
@@ -75,15 +87,15 @@ class MH
         {
             return nameh;
         }
-        friend void nhapMH(vector<MH> &listMH,int &dem);
-        friend void xuatMH(vector<MH> &listMH);
+        
 };
+int MH::count=1000;
 
 class BDS
 {
     private:
         KH human;
-        MH hang[10];
+        vector<MH> hang;
         int dem=0;
     public:
         void input()
@@ -91,7 +103,7 @@ class BDS
             human.input();
             
             string tmp;
-            while (dem<=10)
+            while (dem<10)
             {
                 cout<<"Ban co muon mua hang khong? (y/n): ";
                 getline(cin,tmp);
@@ -99,7 +111,7 @@ class BDS
                 {
                     MH tmp;
                     tmp.input();
-                    for (int i = 0; i < dem; i++)
+                    for (int i = 0; i < hang.size(); i++)
                     {
                         if (tmp.getNameHang()==hang[i].getNameHang() || tmp.getSoluongHang()>10)
                         {
@@ -109,7 +121,7 @@ class BDS
                         }
                         
                     }
-                    hang[dem]=tmp;
+                    hang.push_back(tmp);
                     dem++;
                     
                 }
@@ -124,133 +136,161 @@ class BDS
 
         void output()
         {
+            cout<<"Thong tin khach hang:"<<endl;
             human.output();
-            cout<<"-------------------------"<<endl;
-            for (int i = 0; i < dem; i++)
+            cout<<endl;
+            cout<<"Thong tin mat hang:"<<endl;
+            for (int i = 0; i < hang.size(); i++)
             {
                 
                 hang[i].output();
+                cout<<endl;
             }
-            cout<<"-------------------------"<<endl;
+            
             
         }
-        friend void nhapBDS(vector<BDS> &listBDS,int &dem);
+        string getNameKH()
+        {
+            return human.getNameKH();
+        }
+        
 };
 
-void nhapKH(vector<KH> &listKH,int &dem)
+
+
+void addkh(vector<KH> &listkh, int &dem)
 {
     KH tmp;
-        tmp.input();
-        listKH.push_back(tmp);
-        dem++;
+    tmp.input();
+    listkh.push_back(tmp);
+    dem++;
 }
 
-void xuatKH(vector<KH> &listKH)
+void xuatlistkh(vector<KH> listkh)
 {
-    cout<<"Danh sach khach hang: "<<endl;
-    cout<<"Ma Khanh Hang"<<"\t"<<"Ho Ten KH"<<"\t"<<"Dia Chi"<<"\t"<<"SDT"<<endl;
-    for (int i = 0; i < listKH.size(); i++)
+    cout<<"Ma KH\tTen KH\tDia Chi\tSDT"<<endl;
+    for (int i = 0; i < listkh.size(); i++)
     {
-        listKH[i].output();
+        listkh[i].output();
+        cout<<endl;
     }
     
 }
 
-void nhapMH(vector<MH> &listMH,int &dem)
+void addmh(vector<MH> &listmh, int &dem)
 {
     MH tmp;
     tmp.input();
-    listMH.push_back(tmp);
+    listmh.push_back(tmp);
     dem++;
 }
 
-void xuatMH(vector<MH> &listMH)
+void xuatmh(vector<MH> listmh)
 {
-    cout<<"Danh sach mat hang: "<<endl;
-    cout<<"Ma Hang"<<"\t"<<"Ten Hang"<<"\t"<<"Nhom Hang"<<"\t"<<"Gia"<<"\t"<<"So Luong"<<endl;
-    for (int i = 0; i < listMH.size(); i++)
+    cout<<"Ma Hang\tTen Hang\tNhom Hang\tGia\tSo Luong"<<endl;
+    for (int i = 0; i < listmh.size(); i++)
     {
-        listMH[i].output();
+        listmh[i].output();
+        cout<<endl;
     }
     
 }
 
-void nhapBDS(vector<BDS> &listBDS,int &dem)
+void addbds(vector<BDS> &listbds, int &dem)
 {
     BDS tmp;
     tmp.input();
-    listBDS.push_back(tmp);
+    listbds.push_back(tmp);
     dem++;
 }
-// xuat bang danh sach mua hang theo ten khach hang
-void xuatBDS(vector<BDS> &listBDS)
+
+void xuatbds(vector<BDS> listbds)
 {
-    cout<<"Danh sach mua hang: "<<endl;
-    cout<<"Ma Khanh Hang"<<"\t"<<"Ho Ten KH"<<"\t"<<"Dia Chi"<<"\t"<<"SDT"<<endl;
-    for (int i = 0; i < listBDS.size(); i++)
+    cout<<"Bang danh sach:"<<endl;
+    for (int i = 0; i < listbds.size(); i++)
     {
-        listBDS[i].output();
+        listbds[i].output();
+        cout<<endl;
     }
+    
+}
+
+void kiemtrabds(vector<BDS> listbds)
+{
+    //cung 1 mat hang va khach hang k duoc xuat hien 2 lan
+
+    
     
 }
 
 int main()
 {
-    vector<KH> listKH;
-    vector<MH> listMH;
-    vector<BDS> listBDS;
-    //nhap thong tin khach hang khi khong biet so luong khach hang
+    vector<KH> listkh;
     int dem=0;
     string tmp;
-    // while (true)
-    // {
-    //     cout<<"Ban co muon nhap thong tin khach hang khong? (y/n): ";
-    //     getline(cin,tmp);
-    //     if (tmp=="y")
-    //     {
-    //         nhapKH(listKH,dem);
-    //     }
-    //     else
-    //     {
-    //         break;
-    //     }
-        
-    // }
-    // xuatKH(listKH);
-
-    // while (1)
-    // {
-    //     cout<<"Ban co muon nhap thong tin mat hang khong? (y/n): ";
-    //     getline(cin,tmp);
-    //     if (tmp=="y")
-    //     {
-    //         nhapMH(listMH,dem);
-    //     }
-    //     else
-    //     {
-    //         break;
-    //     }
-    // }
-    // xuatMH(listMH);
-
     while (1)
     {
-        cout<<"Ban co muon nhap danh sach mua hang? (y/n): ";
+        cout<<"Ban co muon nhap KH khong? (y/n): ";
         getline(cin,tmp);
-        if (tmp=="y")
-        {
-            nhapBDS(listBDS,dem);
-        }
-        else
+        if (tmp=="n")
         {
             break;
         }
+        else
+        {
+            addkh(listkh,dem);
+        }
     }
-    
-    
+    xuatlistkh(listkh);
+
+    vector<MH> listmh;
+    dem=0;
+    while (1)
+    {
+        cout<<"Ban co muon nhap Mat Hang khong? (y/n): ";
+        getline(cin,tmp);
+        if (tmp=="n")
+        {
+            break;
+        }
+        else
+        {
+            addmh(listmh,dem);
+        }
+    }
+    xuatmh(listmh);
+
+    vector<BDS> listbds;
+    dem=0;
+    while (1)
+    {
+        cout<<"Ban co muon nhap bang danh sach khong? (y/n): ";
+        getline(cin,tmp);
+        if (tmp=="n")
+        {
+            break;
+        }
+        else
+        {
+            addbds(listbds,dem);
+            for (int i = 0; i < listbds.size(); i++)
+            {
+                if (listbds[listbds.size()-1].getNameKH()==listbds[i].getNameKH() )              
+                {
+                    cout<<"Khong duoc trung ten khach hang"<<endl;
+                    listbds.pop_back();
+                    dem--;
+                    cout<<"Nhap lai"<<endl;
+                    addbds(listbds,dem);
+                }
+                
+            }
+            
+        }
+    }
+    xuatbds(listbds);
+
 
     return 0;
     
-
-
 }
