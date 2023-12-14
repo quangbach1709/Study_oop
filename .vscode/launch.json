@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/Study_oop/C++/Class",
-      "program": "d:/Study_oop/C++/Class/build/Debug/outDebug",
+      "cwd": "d:/Study_oop/C++/Ngan_Hang_De/Phan1_Dinh_Nghia_Class",
+      "program": "d:/Study_oop/C++/Ngan_Hang_De/Phan1_Dinh_Nghia_Class/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
