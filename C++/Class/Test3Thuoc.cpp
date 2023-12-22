@@ -75,8 +75,18 @@ class Meds
             cout<<"Hang thuoc la: "<<hangMeds<<endl;
             cout<<"Gia thuoc la: "<<gia<<endl; 
         }
+        bool operator==(Meds tmp)
+        {
+            if (MaMeds==tmp.MaMeds)
+            {
+                return true;
+            }
+            return false;
+            
+        }
 
 };
+
 
 class ThuocBo :public Meds
 {
@@ -182,6 +192,59 @@ int main()
         
     }
     cout<<"Danh sach thuoc la: "<<endl;
+    cout<<"Danh sach thuoc bo: "<<endl;
+    for (int i = 0; i < TB.size(); i++)
+    {
+        TB[i].output();
+    }
+    cout<<"Danh sach thuoc khanh sinh:"<<endl;
+    for (int i = 0; i < KS.size(); i++)
+    {
+        KS[i].output();
+    }
+
+    ThuocBo tmpBo;
+    KhangSinh tmpKS;
+    while (1)
+    {
+        cout<<"Ban muon nhap thuoc nao?(1:Thuoc Bo,2:Thuoc khang sinh,0:exit)"<<endl;
+        cin>>continues;
+        if (continues==1)
+        {
+            ptr=&tmpBo;
+            ptr->input();
+        }
+        else if (continues==2)
+        {
+            ptr=&tmpKS;
+            ptr->input();
+        }
+        else
+            break;
+        
+    }
+    for (int i = 0; i < TB.size(); i++)
+    {
+        if (TB[i]==tmpBo)
+        {
+            cout<<"Co trong danh sach thuoc bo."<<endl;
+            break;
+        }
+        
+    }
+    for (int i = 0; i < KS.size(); i++)
+    {
+        if (KS[i]==tmpKS)
+        {
+            cout<<"Co trong danh sach thuoc khang sinh."<<endl;
+            break;
+        }
+        
+    }
+    
+    
+    
+    
     
     
 }
