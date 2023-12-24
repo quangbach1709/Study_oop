@@ -27,6 +27,10 @@ class ThiSinh
         cout<<"Diem ly: "<<diemLy<<endl;
         cout<<"Diem hoa: "<<diemHoa<<endl;
     }
+    float SumPoint()
+    {
+        return diemToan+diemLy+diemHoa;
+    }
 };
 
 class ListThiSinh
@@ -51,24 +55,23 @@ class ListThiSinh
                 TS[i].output();
             }
         }
-        float tongDiem(ThiSinh ts)
+        void swap(int n)
         {
-            return ts.diemToan + ts.diemLy + ts.diemHoa;
-        }
-        void sapXep()
-        {
-            for(int i = 0; i < n-1; i++)
+            for (int i = 0; i < n; i++)
             {
-                for(int j = i+1; j < n; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    if(tongDiem(TS[i]) < tongDiem(TS[j])
+                    if (TS[i].SumPoint()<)
                     {
-                        ThiSinh temp = TS[i];
-                        TS[i] = TS[j];
-                        TS[j] = temp;
+                        /* code */
                     }
+                    
                 }
+                
+                
             }
+            
         }
+        
 };
 
