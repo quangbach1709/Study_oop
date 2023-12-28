@@ -4,7 +4,7 @@ using namespace std;
 
 class Oxy
 {
-	private:
+	protected:
 		float x,y;
 	public:
 		Oxy(){
@@ -79,17 +79,19 @@ class Oxyz:public Oxy
 		}
 		friend istream& operator>>(istream& is, Oxyz &tmp)
 		{
-			cout<<"Nhap x = ";
-			
-
-			
+			cout << "Nhap x = ";
+			is >> tmp.x;
+			cout << "Nhap y = ";
+			is >> tmp.y;
+			cout << "Nhap z = ";
+			is >> tmp.z;
 			
 			return is;
 		}
-		friend Oxyz trungDiem(Oxyz &tmp1,Oxyz &tmp2);
+		friend void trungDiem(Oxyz &tmp1,Oxyz &tmp2);
 };
 
-Oxyz trungDiem(Oxyz &tmp1,Oxyz &tmp2)
+void trungDiem(Oxyz &tmp1,Oxyz &tmp2)
 {
 	cout<<"Trung diem Oxyz la: "<<endl;
 	cout<<"X = "<<(tmp1.getX()+tmp2.getX())/2<<endl;
@@ -101,5 +103,33 @@ Oxyz trungDiem(Oxyz &tmp1,Oxyz &tmp2)
 
 int main()
 {
-	
+	int n;
+	cout<<"Nhap so luong diem: ";
+	cin>>n;
+	cin.ignore();
+	Oxyz *ptr=new Oxyz[n];
+	for(int i=0;i<n;i++)
+	{
+		cout<<"Nhap toa do diem thu "<<i+1<<": "<<endl;
+		cin>>ptr[i];
+	}
+	cout<<"Danh sach diem la: "<<endl;
+	for(int i=0;i<n;i++)
+	{
+		cout<<"Toa do diem thu "<<i+1<<" la: "<<endl;
+		cout<<ptr[i];
+		cout<<"-----------------"<<endl;
+	}
+	cout<<"Cac cap diem doi xung qua tam O la: "<<endl;
+	for(int i=0;i<n;i++)
+	{
+		for(int j=i+1;j<n;j++)
+		{
+			if(ptr[i].getX()==-ptr[j].getX()&&ptr[i].getY()==-ptr[j].getY()&&ptr[i].getZ()==-ptr[j].getZ())
+			{
+				cout<<"Cap diem thu "<<i+1<<" va diem thu "<<j+1<<" la cap diem doi xung."<<endl;
+			}
+		}
+	}
+	return 0;
 }
