@@ -165,7 +165,7 @@ int main()
 {
 	int dem=0;
 	int tmp=0;
-	Device **list;
+	Device **list=new Device*[5];
 	while(dem<=5)
 	{
 		cout<<"Ban muon nhap Computer(1) hay Monitor(2): ";
@@ -194,7 +194,7 @@ int main()
 	cout<<"Danh sach thiet bi:"<<endl;
 	for(int i=0;i<dem;i++)
 	{
-		cout<<"Thong tin thiet bij thu "<<i+1<<" :"<<endl;
+		cout<<"Thong tin thiet bi thu "<<i+1<<" :"<<endl;
 		list[i]->output();
 		cout<<"------------"<<endl;
 	}
