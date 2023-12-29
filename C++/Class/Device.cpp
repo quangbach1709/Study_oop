@@ -3,12 +3,32 @@
 
 using namespace std;
 
-class Device
-{
+struct Date{
+	int day,month,year;
+};
+
+class Device{
 	private:
-		int id,dateCheTao;
+		int id;
 		string name,nhaCheTao;
+		Date dateCheTao;
 	public:
+		Device()
+		{
+			id=0;
+			name="";
+			nhaCheTao="";
+			dateCheTao.day=0;
+			dateCheTao.month=0;
+			dateCheTao.year=0;
+		}
+		Device(int id,string name,string nhaCheTao,Date date)
+		{
+			this->id=id;
+			this->name=name;
+			this->nhaCheTao=nhaCheTao;
+			this->dateCheTao=date;
+		}
 		void setId(int id)
 		{
 			this->id=id;
@@ -25,66 +45,72 @@ class Device
 		{
 			return name;
 		}
-		void setNhaCheTao(string nhachetao)
+		void setNhaCheTao(string nhaCheTao)
 		{
-			this->nhaCheTao=nhachetao;
+			this->nhaCheTao=nhaCheTao;
 		}
 		string getNhaCheTao()
 		{
 			return nhaCheTao;
 		}
-		void setDateCheTao(int ngaychetao)
+		void setDateCheTao(Date date)
 		{
-			this->dateCheTao=ngaychetao;
+			this->dateCheTao=date;
 		}
-		int getDateCheTao()
+		Date getDateCheTao()
 		{
 			return dateCheTao;
 		}
-		
-		virtual void input()
+		friend istream& operator>>(istream &is,Device &a)
 		{
-			cout<<"Nhap Id: ";
-			cin>>id;
-			cin.ignore();
-			cout<<"Nhap Ten: ";
-			getline(cin,name);
-			cout<<"Nhap Nha che tao: ";
-			getline(cin,nhaCheTao);
-			cout<<"Nhap ngay che tao: ";
-			cin>>dateCheTao;
-			cin.ignore();
-		}
-		friend istream& operator>>(istream& is,Device &a)
-		{
-			a.input();
+			cout<<"Nhap id: ";
+			is>>a.id;
+			is.ignore();
+			cout<<"Nhap ten: ";
+			getline(is,a.name);
+			cout<<"Nhap nha che tao: ";
+			getline(is,a.nhaCheTao);
+			cout<<"Nhap ngay thang nam: ";
+			is>>a.dateCheTao.day>>a.dateCheTao.month>>a.dateCheTao.year;
+			is.ignore();
+
 			return is;
 		}
-		
-		virtual void output()
+		friend ostream& operator<<(ostream &os,Device &a)
 		{
-			cout<<"Id: "<<id<<endl;
-			cout<<"Ten: "<<name<<endl;
-			cout<<"Nha che tao: "<<nhaCheTao<<endl;
-			cout<<"Ngay che tao: "<<dateCheTao<<endl;
-		}
-		friend ostream& operator<<(ostream& os,Device &a)
-		{
-			a.output();
+			os<<"Id: "<<a.id<<endl;
+			os<<"Ten: "<<a.name<<endl;
+			os<<"Nha che tao: "<<a.nhaCheTao<<endl;
+			os<<"Ngay thang nam: "<<a.dateCheTao.day<<"/"<<a.dateCheTao.month<<"/"<<a.dateCheTao.year<<endl;
+
 			return os;
 		}
-//		virtual toString()=0;
-		
+		virtual bool HetHanSD()=0;
 };
 
-class Computer :public Device
+class Computer : public Device
 {
 	private:
 		string cpu,ram;
 	public:
-		void setCpu(string cpu)
+		Computer()
+		{
+			cpu="";
+			ram="";
+		}
+		Computer(string ram,string cpu,int id,string name,string nhaCheTao,Date date)
+		:Device(id,name,nhaCheTao,date)
 		{
 			this->cpu=cpu;
+			this->ram=ram;
+			this->setDateCheTao(date);
+			this->setId(id);
+			this->setName(name);
+			this->setNhaCheTao(nhaCheTao);
+		}
+		void setCpu(string)
+		{
+			this->cpu =cpu;
 		}
 		string getCpu()
 		{
@@ -98,105 +124,139 @@ class Computer :public Device
 		{
 			return ram;
 		}
-		void input()
+		friend istream& operator>>(istream &is,Computer &a)
 		{
-			Device::input();
-			cout<<"Nhap Cpu: ";
-			getline(cin,cpu);
-			cout<<"Nhap Ram: ";
-			getline(cin,ram);
-		}
-		friend istream& operator>>(istream& is,Computer &a)
-		{
-			a.input();
+			is>>(Device&)a;
+			cout<<"Nhap cpu: ";
+			is>>a.cpu;
+			cout<<"Nhap ram: ";
+			is>>a.ram;
 			return is;
 		}
-		void output()
+		friend ostream& operator<<(ostream &os,Computer &a)
 		{
-			Device::output();
-			cout<<"Cpu: "<<cpu<<endl;
-			cout<<"Ram: "<<ram<<endl;
-		}
-		friend ostream& operator<<(ostream& os,Computer &a)
-		{
-			a.output();
+			os<<(Device&)a;
+			os<<"Cpu: "<<a.cpu<<endl;
+			os<<"Ram: "<<a.ram<<endl;
 			return os;
 		}
+
+		bool HetHanSD()
+		{
+			if (ram=="8GB")
+			{
+				return true;
+			}
+			return false;
+			
+		}
+
 };
 
-class Monitor :public Device
+class Monitor : public Device
 {
 	private:
 		string size;
 	public:
+		Monitor()
+		{
+			size="";
+		}
+		Monitor(string size,int id,string name,string nhaCheTao,Date date)
+		:Device(id,name,nhaCheTao,date)
+		{
+			this->size=size;
+			this->setDateCheTao(date);
+			this->setId(id);
+			this->setName(name);
+			this->setNhaCheTao(nhaCheTao);
+		}
 		void setSize(string size)
 		{
 			this->size=size;
 		}
-		
 		string getSize()
 		{
 			return size;
 		}
-		void input()
+		friend istream& operator>>(istream &is,Monitor &a)
 		{
-			Device::input();
+			is>>(Device&)a;
 			cout<<"Nhap size: ";
-			cin>>size;
-		}
-		friend istream& operator>>(istream& is,Monitor &a)
-		{
-			a.input();
+			is>>a.size;
 			return is;
 		}
-		void output()
+		friend ostream& operator<<(ostream &os,Monitor &a)
 		{
-			Device::output();
-			cout<<"Size: "<<size<<endl;
-		}
-		friend ostream& operator<<(ostream& os,Monitor &a)
-		{
-			a.output();
+			os<<(Device&)a;
+			os<<"Size: "<<a.size<<endl;
 			return os;
 		}
-};
 
-int main()
-{
-	int dem=0;
-	int tmp=0;
-	Device **list=new Device*[5];
-	while(dem<=5)
-	{
-		cout<<"Ban muon nhap Computer(1) hay Monitor(2): ";
-		cin>>tmp;
-		cin.ignore();
-		if(tmp==1)
+		bool HetHanSD()
 		{
-			list[dem]=new Computer;
-			cout<<"Nhap thong tin cho thiet bi thu "<<dem+1<<" : "<<endl;
-			cin>>*dynamic_cast<Computer*>(list[dem]);
+			if (size=="32inch")
+			{
+				return true;
+			}
+			return false;
 			
 		}
-		else if(tmp==2)
-		{
-			list[dem]=new Monitor;
-			cout<<"Nhap thong tin cho thiet bi thu "<<dem+1<<" : "<<endl;
-			cin>>*dynamic_cast<Monitor*>(list[dem]);
-		}
-		else
-			break;
-		dem++;
-				
-	}
-	
-	
-	cout<<"Danh sach thiet bi:"<<endl;
-	for(int i=0;i<dem;i++)
+};
+int main() {
+    int n, m;
+    cout << "Nhap so luong may tinh: ";
+    cin >> n;
+    cin.ignore();
+
+    cout << "Nhap so luong Monitor: ";
+    cin >> m;
+    cin.ignore();
+
+    // Tạo mảng list có đủ chỗ để lưu các con trỏ
+    Device **list = new Device*[n + m];
+
+    for (int i = 0; i < n; i++) {
+        list[i] = new Computer;
+        cout << "Nhap thong tin may tinh thu " << i + 1 << ":" << endl;
+        cin >> *dynamic_cast<Computer*>(list[i]);
+    }
+
+    for (int i = n; i < n + m; i++) {
+        list[i] = new Monitor;
+        cout << "Nhap thong tin Monitor thu " << i - n + 1 << ":" << endl;
+        cin >> *dynamic_cast<Monitor*>(list[i]);
+    }
+
+    cout << "Danh sach may tinh la: " << endl;
+    for (int i = 0; i < n; i++) {
+        cout << "May tinh thu " << i + 1 << ":" << endl;
+        cout << (*list[i]);
+    }
+
+    cout << "Danh sach Monitor: " << endl;
+    for (int i = n; i < n + m; i++) {
+        cout << "Monitor thu " << i - n + 1 << ":" << endl;
+        cout << (*list[i]);
+    }
+
+    cout<<"Danh sach May tinh het han su dung:"<<endl;
+	for (int i = 0; i < n; i++)
 	{
-		cout<<"Thong tin thiet bi thu "<<i+1<<" :"<<endl;
-		list[i]->output();
-		cout<<"------------"<<endl;
+		if ((*list[i]).HetHanSD())
+		{
+			cout<<(*list[i]);
+		}
+		
 	}
-	
+	cout<<"Danh sach Monitor het han la: "<<endl;
+	for (int i = n; i < n+m; i++)
+	{
+		if ((*list[i]).HetHanSD())
+		{
+			cout<<(*list[i]);
+		}
+		
+	}
+    return 0;
 }
