@@ -1,5 +1,6 @@
 #include<iostream>
 #include<string>
+#include<vector>
 
 using namespace std;
 
@@ -66,5 +67,68 @@ class FriendRead :public Human
         int soSachMuon;
         string loaiFriendRead;
     public:
+        void input()
+        {
+            Human::input();
+            cout<<"Nhap thong tin cua the doc "<<maCardRead<<endl;
+            cout<<"Nhap so luong sach muon: ";
+            cin>>soSachMuon;
+            cin.ignore();
+            cout<<"Nhap loai ban doc: ";
+            getline(cin,loaiFriendRead);
+            
+        }
+        void output()
+        {
+            Human::output();
+            cout<<"Ma the doc la: "<<maCardRead<<endl;
+            cout<<"So luong sach muon la: "<<soSachMuon<<endl;
+            cout<<"Loai ban doc la: "<<loaiFriendRead<<endl;
+        }
 
 };
+int FriendRead :: maCardRead=10000;
+int main()
+{
+    Book *ptr;
+    Human *ptr_fun;
+    vector<Book>book;
+    vector<FriendRead>fbook;
+    int dem=0;
+    bool check;
+    do
+    {
+        cout<<"Nhap vao quyen sach thu "<<dem+1<<endl;
+        Book tmpbook;
+        ptr=&tmpbook;
+        ptr->input();
+        book.push_back(tmpbook);
+        dem++;
+        cout<<"Ban muon tiep tuc nhap ?(1:yes or 0 no) ";
+        cin>>check;
+        if (!check)
+        {
+            dem=0;
+        }
+        
+    } while (check);
+
+    do
+    {
+        cout<<"Nhap vao ban doc thu "<<dem+1<<endl;
+        FriendRead tmpfbook;
+        ptr_fun=&tmpfbook;
+        ptr_fun->input();
+        fbook.push_back(tmpfbook);
+        dem++;
+        cout<<"Ban muon tiep tuc nhap ?(1:yes or 0 no) ";
+        cin>>check;
+        if (!check)
+        {
+            dem=0;
+        }
+    } while (check);
+    
+    
+
+}
