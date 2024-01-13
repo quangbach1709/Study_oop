@@ -150,14 +150,14 @@ class FriendRead :public Human
 {
     private:
         int ma;
-        static int count;
+        static int dem1;
         string loaifriend;
         int sobook;
         Book listbook[100];
     public:
         FriendRead()
         {
-            ma=count++;
+            ma=dem1++;
             loaifriend='0';
             sobook=0;
         }
@@ -215,7 +215,7 @@ class FriendRead :public Human
             
         }
 };
-int FriendRead::count =10000;
+int FriendRead::dem1 =10000;
 
 int main()
 {
