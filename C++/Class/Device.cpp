@@ -217,14 +217,14 @@ int main() {
     Device **list = new Device*[n + m];
 
     for (int i = 0; i < n; i++) {
-        //list[i] = new Computer;
+        list[i] = new Computer;
         cout << "Nhap thong tin may tinh thu " << i + 1 << ":" << endl;
         Computer *n =dynamic_cast<Computer*>(list[i]);
 		cin>>*n;  
     }
 
     for (int i = n; i < n + m; i++) {
-        //list[i] = new Monitor;
+        list[i] = new Monitor;
         cout << "Nhap thong tin Monitor thu " << i - n + 1 << ":" << endl;
         cin >> *dynamic_cast<Monitor*>(list[i]);
     }
