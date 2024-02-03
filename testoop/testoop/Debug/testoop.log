@@ -1,0 +1,4 @@
+﻿  testoop.cpp
+testoop.obj : error LNK2019: unresolved external symbol "public: __thiscall NhanVien::NhanVien(void)" (??0NhanVien@@QAE@XZ) referenced in function _main
+testoop.obj : error LNK2019: unresolved external symbol "public: __thiscall NhanVien::~NhanVien(void)" (??1NhanVien@@QAE@XZ) referenced in function _main
+D:\Study_oop\testoop\Debug\testoop.exe : fatal error LNK1120: 2 unresolved externals

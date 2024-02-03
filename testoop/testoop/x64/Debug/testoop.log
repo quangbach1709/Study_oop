@@ -1,0 +1,2 @@
+﻿testoop.obj : error LNK2005: main already defined in Human.obj
+D:\Study_oop\testoop\x64\Debug\testoop.exe : fatal error LNK1169: one or more multiply defined symbols found
